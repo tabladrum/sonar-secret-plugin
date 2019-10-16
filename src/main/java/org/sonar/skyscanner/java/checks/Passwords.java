@@ -37,7 +37,7 @@ import static org.sonar.skyscanner.java.checks.Entropy.getShannonEntropy;
 public class Passwords extends AbstractBaseCheck {
 
     private static final Pattern PASSWORD_VARIABLES = Pattern.compile(".*(password|passwd|pwd|LDAPPASS)$", Pattern.CASE_INSENSITIVE);
-    private static final Pattern PASSWORD_VALUE = Pattern.compile(".*(Capital1|ChangeIt|Password1|admin)$", Pattern.CASE_INSENSITIVE);
+    private static final Pattern PASSWORD_VALUE = Pattern.compile(".*(ChangeIt|Password1|admin)$", Pattern.CASE_INSENSITIVE);
 
     protected void validate(Tree tree, String variable, String value) {
         variable = org.sonar.skyscanner.java.checks.Utils.trimQuotes(variable.toLowerCase().trim());

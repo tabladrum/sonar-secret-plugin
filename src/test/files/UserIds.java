@@ -18,6 +18,6 @@ class UserIdTestMock {
     }
 
     private void test_noncompliant() {
-        String username = ""; // Noncompliant - to test need to put in eid
+        String username = "custom-regex"; // Noncompliant - to test need to put in eid
     }
 }

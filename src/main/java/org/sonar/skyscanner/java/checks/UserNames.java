@@ -37,8 +37,8 @@ import static org.sonar.skyscanner.java.checks.Entropy.getShannonEntropy;
 public class UserNames extends AbstractBaseCheck {
 
     private static final Pattern USER_VARIABLES = Pattern.compile(".*(username|userid|user_name|ldaplogin)$", Pattern.CASE_INSENSITIVE);
-    private static final Pattern USER_VALUES = Pattern.compile(".*(Capital1|ChangeIt|admin)$", Pattern.CASE_INSENSITIVE);
-    private static final Pattern CAPITALONE_USERID = Pattern.compile("[a-zA-Z]{3}\\d{3}",Pattern.CASE_INSENSITIVE);
+    private static final Pattern USER_VALUES = Pattern.compile(".*(ChangeIt|admin)$", Pattern.CASE_INSENSITIVE);
+    private static final Pattern COMPANY_SPECIFIC_USERID = Pattern.compile("custom-regex",Pattern.CASE_INSENSITIVE);
 
     protected void validate(Tree tree, String variable, String value) {
         variable = Utils.trimQuotes(variable.toLowerCase().trim());
@@ -47,7 +47,7 @@ public class UserNames extends AbstractBaseCheck {
         if (value.length() > 1 && !value.contains(" ")) {
             if (!variable.equals(value)) {
                 if (USER_VARIABLES.matcher(variable).matches()) {
-                    if (USER_VALUES.matcher(value).matches() || CAPITALONE_USERID.matcher(value).matches()) {
+                    if (USER_VALUES.matcher(value).matches() || COMPANY_SPECIFIC_USERID.matcher(value).matches()) {
                         reportIssue(tree, "Hardcoded secrets can be abused to gain unauthorized access and compromise the security perimeter.");
                     } else {
                         if (getShannonEntropy(value) >= ENTROPY_THRESHOLD) {
